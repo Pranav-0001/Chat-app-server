@@ -103,6 +103,8 @@ const renameGroup=async(req,res)=>{
 const addGroup=async(req,res)=>{
     const {chatId,userId}=req.body
     console.log(req.body);
+    const users=await Chat.findOne({_id:chatId})
+    console.log(users,"ss");
     const added=await Chat.findByIdAndUpdate(chatId,
         {
             $push:{users:userId},
@@ -114,6 +116,7 @@ const addGroup=async(req,res)=>{
         if(!added){
             res.json({error:"chat not found"})
         }else{
+            console.log(added,"added");
             res.json(added)
         }
 }
